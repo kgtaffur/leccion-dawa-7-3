@@ -49,6 +49,9 @@ export class TableComponent {
     this.filtrada = this.filtrada.filter((d: Donacion) => {
       return donacion.nombre !== d.nombre && donacion.apellido !== d.apellido;
     });
+    this.listaDonaciones = this.listaDonaciones.filter((d: Donacion) => {
+      return donacion.nombre !== d.nombre && donacion.apellido !== d.apellido;
+    });
     this.donacionesEfectuadas.push(donacion);
     this.totalDonaciones();
   }
