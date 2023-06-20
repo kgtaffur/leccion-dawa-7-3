@@ -1,0 +1,121 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h1>Datos de la Posible Donación</h1>
+        <form [formGroup]="form" (ngSubmit)="agregarDonacion()">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              name="firstName"
+              formControlName="nombre"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              name="lastName"
+              formControlName="apellido"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="value" class="form-label">Valor</label>
+            <input
+              type="number"
+              class="form-control"
+              id="value"
+              name="value"
+              formControlName="valor"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="datePicker" class="form-label">Fecha</label>
+            <input
+              type="date"
+              class="form-control"
+              id="datePicker"
+              name="datePicker"
+              formControlName="fecha"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <app-card [total]="totalDonaciones()"></app-card>
+  <div class="container mt-5 col-md-6 offset-md-3">
+    <h3>Buscar:</h3>
+    <div class="row">
+      <div class="col">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre"
+            aria-label="Search field 1"
+            [(ngModel)]="busqueda_nombre"
+          />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Apellido"
+            aria-label="Search field 2"
+            [(ngModel)]="busqueda_apellido"
+          />
+          <button class="btn btn-primary" type="button" (click)="buscar()">
+            <i class="bi bi-search"></i> Buscar
+          </button>
+          <button class="btn btn-danger" type="button" (click)="limpiar()">
+            <i class="bi bi-x-circle"></i> Limpiar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <div *ngIf="filtrada.length === 0" class="card p-2">
+      <h6>No hay Donaciones en el Registro</h6>
+    </div>
+
+    <table *ngIf="filtrada.length > 0" class="table table-light bdr">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Fecha</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="text-center" *ngFor="let donacion of filtrada">
+        <tr>
+          <td>{{ donacion.nombre }}</td>
+          <td>{{ donacion.apellido }}</td>
+          <td>${{ donacion.valor }}</td>
+          <td>{{ donacion.fecha }}</td>
+          <td>
+            <span
+              class="cursor text-danger"
+              (click)="eliminarDonacion(donacion)"
+            >
+              <i class="bi bi-trash-fill"></i>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
